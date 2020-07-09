@@ -1,6 +1,7 @@
 from binary_tree import BinarySearchTree 
 from PIL import Image, ImageTk
 import tkinter as tk 
+import os
 
 # initiate tkinter root 
 window = tk.Tk() 
@@ -8,19 +9,18 @@ window.geometry("1200x800")
 
 # variables 
 image_size = (50, 50) 
-path_to_images = "numbers_1_to_10/"
 
 # getting images of numbers 1 to 10
-one = Image.open(path_to_images + "one.png").resize(image_size)
-two = Image.open(path_to_images + "two.png").resize(image_size)
-three = Image.open(path_to_images + "three.png").resize(image_size)
-four = Image.open(path_to_images + "four.png").resize(image_size)
-five = Image.open(path_to_images + "five.png").resize(image_size)
-six = Image.open(path_to_images + "six.png").resize(image_size)
-seven = Image.open(path_to_images + "seven.png").resize(image_size)
-eight = Image.open(path_to_images + "eight.png").resize(image_size)
-nine = Image.open(path_to_images + "nine.png").resize(image_size)
-ten = Image.open(path_to_images + "ten.png").resize(image_size)
+one = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "one.png")).resize(image_size))
+two = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "two.png")).resize(image_size))
+three = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "three.png")).resize(image_size))
+four = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "four.png")).resize(image_size))
+five = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "five.png")).resize(image_size))
+six = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "six.png")).resize(image_size))
+seven = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "seven.png")).resize(image_size))
+eight = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "eight.png")).resize(image_size))
+nine = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "nine.png")).resize(image_size))
+ten = ImageTk.PhotoImage(Image.open(os.path.join("numbers_1_to_10", "ten.png")).resize(image_size))
 
 # run root 
 window.mainloop()
