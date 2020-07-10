@@ -2,9 +2,27 @@ from PIL import Image, ImageTk
 import tkinter as tk 
 import os
 
+# variables 
+window_size = "800x600" 
+background_colour = "#263D42"
+
 # initiate tkinter root 
 window = tk.Tk() 
-window.geometry("1200x800")
+window.geometry(window_size)
+window.configure(bg=background_colour)
+background_colour
+# adding main window frames 
+title_frame = tk.Frame(master=window, height=300, width=800, bg=background_colour) 
+instruction_frame = tk.Frame(master=window, height=150, width=800, bg=background_colour)
+graph_selection_frame = tk.Frame(master=window, height=150, width=800, bg=background_colour)
+title_frame.pack() 
+instruction_frame.pack() 
+graph_selection_frame.pack() 
+
+# adding label for title 
+title_image = ImageTk.PhotoImage(Image.open(os.path.join("img", "title.png")).resize((800,300)))
+title_label = tk.Label(master=title_frame, height=300, width=800, bg=background_colour, image=title_image)
+title_label.pack()
 
 # variables 
 image_size = (50, 50) 
