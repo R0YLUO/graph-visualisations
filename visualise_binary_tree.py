@@ -15,6 +15,8 @@ class BinaryTreeWindow:
         self.master.title("Visualise binary serach tree")
         self.canvas = tk.Canvas(master=self.master, height=450)
         self.canvas.pack(fill=tk.BOTH)
+        self.instruction = tk.Label(master=self.master, text="Click on a number to add it to the tree")
+        self.instruction.pack()
         self.number_buttons_frame = tk.Frame(master=self.master, width=self.WIN_WIDTH, height=150)
         self.number_buttons_frame.pack()
         self.number_images = get_number_images(self.master, (50,50))
