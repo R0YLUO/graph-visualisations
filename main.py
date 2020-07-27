@@ -1,5 +1,6 @@
 import tkinter as tk 
 from visualise_binary_tree import BinaryTreeWindow
+from visualise_max_heap import MaxHeapWindow
 
 
 class GraphVisualisingApplication: 
@@ -25,7 +26,9 @@ class GraphVisualisingApplication:
         app.run()
 
     def __run_heap(self) -> None: 
-        print("running heap")
+        app_root = tk.Tk() 
+        app = MaxHeapWindow(app_root) 
+        app.run()
 
     def run(self) -> None: 
         self.master.mainloop()
