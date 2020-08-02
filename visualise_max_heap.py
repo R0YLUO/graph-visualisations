@@ -43,14 +43,19 @@ class NumberOnCanvas:
         self.image = image 
         self.x_coord = x_coord
         self.y_coord = y_coord 
+        self.line_to_parent = None
+        self.coords_of_parent = None
     
     def add_to_canvas(self, canvas: tk.Canvas, coords_of_parent=None): 
         canvas.create_image(self.x_coord, self.y_coord, image=self.image)
         if coords_of_parent is not None: 
-            canvas.create_line(coords_of_parent[0], coords_of_parent[1], self.x_coord, self.y_coord)
+            self.line_to_parent = canvas.create_line(coords_of_parent[0], coords_of_parent[1], self.x_coord, self.y_coord)
 
     def get_coords(self): 
         return self.x_coord, self.y_coord
+
+    def shift(self, new_x, new_y): 
+        pass 
 
 
 class MaxHeapOnCanvas: 
@@ -65,7 +70,7 @@ class MaxHeapOnCanvas:
         self.level_capacity = 2**(self.level - 1)
         self.level_size = 0
         self.coords_to_add_new = [600, 20]
-        self.line_side_shift = 400
+        self.line_side_shift = 800
         self.line_verticle_shift = 40
     
     def insert(self, number: int): 
@@ -75,18 +80,21 @@ class MaxHeapOnCanvas:
             parent_coords = self.array[self.size//2].get_coords() 
         number_on_canvas = NumberOnCanvas(number, self.number_images[number - 1], self.coords_to_add_new[0], self.coords_to_add_new[1])
         number_on_canvas.add_to_canvas(self.canvas, parent_coords)
+        self.array.append(number_on_canvas)
         self.level_size += 1
         if self.level_size == self.level_capacity: 
-            self.level_size == 0 
+            self.level_size = 0 
             self.level += 1 
             self.level_capacity = 2**(self.level - 1)
-            self.coords_to_add_new[1] = self.coords_to_add_new[1] + self.line_verticle_shift
-        self.array.append(number_on_canvas)
-        next_parent = self.array[(self.size + 1) // 2].get_coords()
+            self.coords_to_add_new[1] += self.line_verticle_shift
+            self.line_side_shift //= 2 
+            if self.line_side_shift < 50: 
+                self.line_side_shift = 50
+        next_parent_coords = self.array[(self.size + 1) // 2].get_coords()
         if self.size // 2 * 2 != self.size:  # self.size is odd
-            self.coords_to_add_new[0] = next_parent[0] - self.line_side_shift
+            self.coords_to_add_new[0] = next_parent_coords[0] - self.line_side_shift
         else: 
-            self.coords_to_add_new[0] = next_parent[0] + self.line_side_shift 
+            self.coords_to_add_new[0] = next_parent_coords[0] + self.line_side_shift 
         # self.__raise(self.size)
 
         
