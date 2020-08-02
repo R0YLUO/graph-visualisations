@@ -74,14 +74,22 @@ class MaxHeapOnCanvas:
         self.line_verticle_shift = 40
     
     def insert(self, number: int): 
-        parent_coords = None
         self.size += 1  
+        self.__execute_insert(number)
+        self.level_size += 1
+        self.__update_level()
+        self.__update_coords_to_add_new()
+        # self.__raise(self.size)
+
+    def __execute_insert(self, number: int): 
+        parent_coords = None
         if self.size > 1: 
             parent_coords = self.array[self.size//2].get_coords() 
         number_on_canvas = NumberOnCanvas(number, self.number_images[number - 1], self.coords_to_add_new[0], self.coords_to_add_new[1])
         number_on_canvas.add_to_canvas(self.canvas, parent_coords)
         self.array.append(number_on_canvas)
-        self.level_size += 1
+
+    def __update_level(self): 
         if self.level_size == self.level_capacity: 
             self.level_size = 0 
             self.level += 1 
@@ -90,14 +98,14 @@ class MaxHeapOnCanvas:
             self.line_side_shift //= 2 
             if self.line_side_shift < 50: 
                 self.line_side_shift = 50
+    
+    def __update_coords_to_add_new(self): 
         next_parent_coords = self.array[(self.size + 1) // 2].get_coords()
         if self.size // 2 * 2 != self.size:  # self.size is odd
             self.coords_to_add_new[0] = next_parent_coords[0] - self.line_side_shift
         else: 
             self.coords_to_add_new[0] = next_parent_coords[0] + self.line_side_shift 
-        # self.__raise(self.size)
 
-        
     def __raise(self, index): 
         if index > 1 and self.array[index // 2].number < self.array[index].number: 
             self.__swap(index//2, index)
